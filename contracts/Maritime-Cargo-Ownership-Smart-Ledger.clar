@@ -64,6 +64,14 @@
   }
 )
 
+(define-map cargo-values
+  { container-id: uint }
+  {
+    value: uint,
+    last-updated: uint
+  }
+)
+
 (define-public (register-container (container-id uint) (destination (string-ascii 50)))
   (let ((sender tx-sender))
     (asserts! (is-eq sender (var-get contract-owner)) ERR-NOT-AUTHORIZED)
@@ -204,3 +212,13 @@
 
 (define-read-only (get-seal-history (container-id uint) (seal-id (string-ascii 64)))
   (ok (map-get? seal-records {container-id: container-id, seal-id: seal-id})))
+
+(define-public (declare-cargo-value (container-id uint) (value uint))
+  (let ((container (unwrap! (map-get? cargo-containers {container-id: container-id}) ERR-NOT-FOUND)))
+    (asserts! (is-eq tx-sender (get owner container)) ERR-NOT-AUTHORIZED)
+    (ok (map-set cargo-values
+      {container-id: container-id}
+      {value: value, last-updated: stacks-block-height}))))
+
+(define-read-only (get-cargo-value (container-id uint))
+  (ok (map-get? cargo-values {container-id: container-id})))

@@ -82,3 +82,59 @@ Testing completed:
 - ✅ Authority management
 - ✅ Inspection logging
 - ✅ Dispute filing
+
+## New Features
+
+### Cargo Value Declaration
+
+- 💰 Declare and update monetary values for cargo containers
+- ⏱️ Timestamped value updates for audit trails
+- 📊 Enhanced financial transparency for insurance and disputes
+
+### Usage
+
+#### Declare Cargo Value
+```clarity
+(contract-call? .maritime-cargo declare-cargo-value u1 u1000000)
+```
+
+#### Get Cargo Value
+```clarity
+(contract-call? .maritime-cargo get-cargo-value u1)
+```
+
+## 🔑 Updated Key Functions
+
+- `register-container`: Create new cargo container entries
+- `transfer-ownership`: Transfer container ownership
+- `update-container-status`: Update container status and location
+- `record-inspection`: Log container inspections
+- `file-dispute`: Create dispute records
+- `declare-cargo-value`: Set monetary value for containers
+- `get-cargo-value`: Retrieve declared container value
+
+Git commit message:
+```
+feat: Enable cargo value declarations for financial transparency
+```
+
+PR Title:
+```
+💰 Cargo Value Declaration Enhancement
+```
+
+PR Description:
+```
+Dive into the future of maritime asset management with our groundbreaking Cargo Value Declaration feature. This innovative addition allows container owners to securely declare monetary values, complete with immutable timestamped updates that create a robust audit trail. By integrating financial data directly into the blockchain ledger, we're bridging the gap between physical logistics and digital finance, ensuring every container's worth is transparently tracked and verifiable.
+
+Unlock unparalleled benefits for stakeholders across the maritime ecosystem:
+
+- 🔐 Owner-exclusive value setting with stringent access controls
+- ⏱️ Block-height timestamped declarations for precise historical tracking
+- 📈 Enhanced datasets powering advanced insurance and dispute resolution algorithms
+- 🚀 Streamlined API for seamless developer integration and automation
+
+This feature not only elevates the smart ledger's capabilities but also sets a new standard for blockchain-driven supply chain transparency. Experience the convergence of maritime logistics and decentralized finance like never before.
+
+#MaritimeFinance #BlockchainValuation #SupplyChainInnovation
+```
