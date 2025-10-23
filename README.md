@@ -112,6 +112,9 @@ Testing completed:
 - `file-dispute`: Create dispute records
 - `declare-cargo-value`: Set monetary value for containers
 - `get-cargo-value`: Retrieve declared container value
+- `file-insurance-claim`: Submit insurance claims for cargo incidents
+- `resolve-insurance-claim`: Process and resolve insurance claims
+- `get-insurance-claim`: Retrieve insurance claim details
 
 Git commit message:
 ```
@@ -137,4 +140,57 @@ Unlock unparalleled benefits for stakeholders across the maritime ecosystem:
 This feature not only elevates the smart ledger's capabilities but also sets a new standard for blockchain-driven supply chain transparency. Experience the convergence of maritime logistics and decentralized finance like never before.
 
 #MaritimeFinance #BlockchainValuation #SupplyChainInnovation
+
+## New Features
+
+### Insurance Claim System
+
+- 🛡️ Streamlined insurance claim filing for cargo incidents
+- ⏱️ Timestamped claim submissions with immutable records
+- 📋 Comprehensive incident tracking and resolution workflow
+- 🔒 Owner-exclusive claim initiation with administrative resolution
+
+### Usage
+
+#### File Insurance Claim
+```clarity
+(contract-call? .maritime-cargo file-insurance-claim u1 u1 u500000 "storm-damage")
+```
+
+#### Resolve Insurance Claim
+```clarity
+(contract-call? .maritime-cargo resolve-insurance-claim u1 "approved" "Claim approved for storm damage")
+```
+
+#### Get Insurance Claim Details
+```clarity
+(contract-call? .maritime-cargo get-insurance-claim u1)
+```
+
+Git commit message:
+```
+feat: Integrate insurance claim management for cargo incidents
+```
+
+PR Title:
+```
+🛡️ Insurance Claim Management System
+```
+
+PR Description:
+```
+Revolutionize maritime risk management with our cutting-edge Insurance Claim System. This groundbreaking feature empowers cargo owners to seamlessly file claims for incidents like storms, theft, or damage, creating an immutable digital trail that transforms traditional insurance processes.
+
+Elevate your maritime ecosystem with:
+
+- 🔐 Owner-controlled claim submissions with robust authentication
+- ⏱️ Block-height timestamped filings ensuring chronological integrity
+- 📊 Detailed incident categorization for precise risk assessment
+- ⚖️ Administrative resolution mechanisms with transparent status tracking
+- 📈 Enhanced data analytics for insurance underwriting and loss prevention
+
+This innovation bridges the gap between blockchain transparency and insurance efficiency, delivering unprecedented trust and speed in maritime claim settlements. Embrace the future of decentralized risk management today.
+
+#MaritimeInsurance #BlockchainClaims #RiskManagement
+```
 ```

@@ -72,6 +72,20 @@
   }
 )
 
+(define-map insurance-claims
+  { claim-id: uint }
+  {
+    container-id: uint,
+    claimant: principal,
+    claim-amount: uint,
+    incident-type: (string-ascii 50),
+    status: (string-ascii 20),
+    filed-at: uint,
+    resolved-at: (optional uint),
+    resolution-notes: (string-ascii 256)
+  }
+)
+
 (define-public (register-container (container-id uint) (destination (string-ascii 50)))
   (let ((sender tx-sender))
     (asserts! (is-eq sender (var-get contract-owner)) ERR-NOT-AUTHORIZED)
@@ -222,3 +236,38 @@
 
 (define-read-only (get-cargo-value (container-id uint))
   (ok (map-get? cargo-values {container-id: container-id})))
+
+(define-public (file-insurance-claim (claim-id uint) (container-id uint) (claim-amount uint) (incident-type (string-ascii 50)))
+  (let ((container (unwrap! (map-get? cargo-containers {container-id: container-id}) ERR-NOT-FOUND))
+        (timestamp stacks-block-height))
+    (asserts! (is-eq tx-sender (get owner container)) ERR-NOT-AUTHORIZED)
+    (asserts! (is-none (map-get? insurance-claims {claim-id: claim-id})) ERR-ALREADY-EXISTS)
+    (ok (map-set insurance-claims
+      {claim-id: claim-id}
+      {
+        container-id: container-id,
+        claimant: tx-sender,
+        claim-amount: claim-amount,
+        incident-type: incident-type,
+        status: "pending",
+        filed-at: timestamp,
+        resolved-at: none,
+        resolution-notes: ""
+      }))))
+
+(define-public (resolve-insurance-claim (claim-id uint) (resolution-status (string-ascii 20)) (notes (string-ascii 256)))
+  (let ((claim (unwrap! (map-get? insurance-claims {claim-id: claim-id}) ERR-NOT-FOUND))
+        (timestamp stacks-block-height))
+    (asserts! (is-eq tx-sender (var-get contract-owner)) ERR-NOT-AUTHORIZED)
+    (asserts! (is-eq (get status claim) "pending") ERR-INVALID-STATE)
+    (ok (map-set insurance-claims
+      {claim-id: claim-id}
+      (merge claim
+        {
+          status: resolution-status,
+          resolved-at: (some timestamp),
+          resolution-notes: notes
+        })))))
+
+(define-read-only (get-insurance-claim (claim-id uint))
+  (ok (unwrap! (map-get? insurance-claims {claim-id: claim-id}) ERR-NOT-FOUND)))
