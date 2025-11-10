@@ -194,3 +194,65 @@ This innovation bridges the gap between blockchain transparency and insurance ef
 #MaritimeInsurance #BlockchainClaims #RiskManagement
 ```
 ```
+Git commit message:
+```
+feat: Introduce temperature monitoring for cargo containers
+```
+
+PR Title:
+```
+🌡️ Temperature Monitoring System for Cargo Integrity
+```
+
+PR Description:
+```
+Elevate maritime cargo management to unprecedented levels of precision with our revolutionary Temperature Monitoring System. This cutting-edge feature empowers container owners to log and track temperature readings in real-time, ensuring optimal conditions for sensitive cargo throughout the entire supply chain journey.
+
+Transform your logistics operations with:
+
+- 🌡️ Granular temperature logging with block-height timestamping for chronological accuracy
+- 🔐 Owner-exclusive access controls maintaining data integrity and privacy
+- 📊 Comprehensive historical temperature data enabling predictive analytics and compliance reporting
+- 🚀 Developer-friendly API facilitating seamless integration with IoT sensors and monitoring platforms
+- ⚡ Instant verification capabilities for regulatory compliance and insurance requirements
+
+This innovation represents a quantum leap in supply chain visibility, enabling proactive temperature management that protects cargo value and minimizes losses. Experience the convergence of blockchain immutability and environmental monitoring technology.
+
+#TemperatureTracking #CargoIntegrity #SupplyChainTech
+
+## New Features
+
+### Temperature Monitoring
+
+- 🌡️ Real-time temperature logging for cargo containers
+- ⏱️ Timestamped entries with immutable blockchain records
+- 🔒 Owner-controlled data management and access
+- 📈 Historical temperature data for compliance and analytics
+
+### Usage
+
+#### Log Temperature
+```clarity
+(contract-call? .maritime-cargo log-temperature u1 25)
+```
+
+#### Get Temperature History
+```clarity
+(contract-call? .maritime-cargo get-temperature-history u1 u12345)
+```
+
+## 🔑 Updated Key Functions
+
+- `register-container`: Create new cargo container entries
+- `transfer-ownership`: Transfer container ownership
+- `update-container-status`: Update container status and location
+- `record-inspection`: Log container inspections
+- `file-dispute`: Create dispute records
+- `declare-cargo-value`: Set monetary value for containers
+- `get-cargo-value`: Retrieve declared container value
+- `file-insurance-claim`: Submit insurance claims for cargo incidents
+- `resolve-insurance-claim`: Process and resolve insurance claims
+- `get-insurance-claim`: Retrieve insurance claim details
+- `log-temperature`: Record temperature readings for containers
+- `get-temperature-history`: Retrieve temperature logs by timestamp
+```

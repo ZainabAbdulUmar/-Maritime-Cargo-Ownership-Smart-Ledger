@@ -86,6 +86,14 @@
   }
 )
 
+(define-map temperature-logs
+  { container-id: uint, timestamp: uint }
+  {
+    temperature: int,
+    logged-by: principal
+  }
+)
+
 (define-public (register-container (container-id uint) (destination (string-ascii 50)))
   (let ((sender tx-sender))
     (asserts! (is-eq sender (var-get contract-owner)) ERR-NOT-AUTHORIZED)
@@ -271,3 +279,17 @@
 
 (define-read-only (get-insurance-claim (claim-id uint))
   (ok (unwrap! (map-get? insurance-claims {claim-id: claim-id}) ERR-NOT-FOUND)))
+
+(define-public (log-temperature (container-id uint) (temperature int))
+  (let ((container (unwrap! (map-get? cargo-containers {container-id: container-id}) ERR-NOT-FOUND))
+        (timestamp stacks-block-height))
+    (asserts! (is-eq tx-sender (get owner container)) ERR-NOT-AUTHORIZED)
+    (ok (map-set temperature-logs
+      {container-id: container-id, timestamp: timestamp}
+      {
+        temperature: temperature,
+        logged-by: tx-sender
+      }))))
+
+(define-read-only (get-temperature-history (container-id uint) (timestamp uint))
+  (ok (map-get? temperature-logs {container-id: container-id, timestamp: timestamp})))
